@@ -24,11 +24,15 @@ class InserePrimeiro {
         int i = 1; //inicializa o indice no segundo elemento
 
         while (i < n && v[i] < primeiro){
-            v[i-1] = v[i];
+            swap(v, i-1, i);
             i++;
         }
+    }
 
-        v[i-1] = primeiro;
+    public static void swap(int[] v, int i, int j) {
+        int aux = v[i];
+        v[i] = v[j];
+        v[j] = aux;
     }
 
 }
