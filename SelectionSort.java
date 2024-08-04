@@ -2,6 +2,7 @@ public class SelectionSort {
     
     public static void selectionSort(int[] array) {
         int n = array.length;
+
         for (int i = 0; i < n - 1; i++) {
             int indexMenor = i;
             for (int j = i + 1; j < n; j++) {
@@ -9,10 +10,14 @@ public class SelectionSort {
                     indexMenor = j;
                 }
             }
-            int temp = array[indexMenor];
-            array[indexMenor] = array[i];
-            array[i] = temp;
+            swap(array, i, indexMenor);
         }
+    }
+
+    public static void swap(int[] v, int i, int j){
+        int aux = v[i];
+        v[i] = v[j];
+        v[j] = aux;
     }
 
     public static void main(String[] args) {
