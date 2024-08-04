@@ -24,10 +24,15 @@ class InsereUltimo {
         int i = v.length - 2; //inicializa o indice no penultimo elemento
 
         while (i >= 0 && v[i] > ultimo){
-            v[i+1] = v[i];
+            swap(v, i+1, i);
             i--;
         }
-
-        v[i+1] = ultimo;
     }
+
+    public static void swap(int[] v, int i, int j) {
+        int aux = v[i];
+        v[i] = v[j];
+        v[j] = aux;
+    }
+
 }

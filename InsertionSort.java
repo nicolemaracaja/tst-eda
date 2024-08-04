@@ -1,16 +1,19 @@
 public class InsertionSort {
     
-    public static void insertionSort(int[] array) {
-        int n = array.length;
-        for (int i = 1; i < n; i++) {
-            int key = array[i];
-            int j = i - 1;
-            while (j >= 0 && array[j] > key) {
-                array[j + 1] = array[j];
-                j = j - 1;
+    public static void insertionSort(int[] array){
+        for (int i = 0; i < array.length; i++){
+            int j = i;
+            while (j > 0 && array[j] < array[j-1]){
+                swap(array, j-1, j);
+                j--;
             }
-            array[j + 1] = key;
         }
+    }
+
+    public static void swap(int[] v, int i, int j){
+        int aux = v[i];
+        v[i] = v[j];
+        v[j] = aux;
     }
 
     public static void main(String[] args) {
