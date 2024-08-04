@@ -18,7 +18,7 @@ class InserePrimeiro {
         sc.close();
     }
 
-    /*public static void inserePrimeiro(int[] v){
+    public static void inserePrimeiro(int[] v){
         int n = v.length;
         int primeiro = v[0]; //primeiro elemento
         int i = 1; //inicializa o indice no segundo elemento
@@ -29,36 +29,6 @@ class InserePrimeiro {
         }
 
         v[i-1] = primeiro;
-    }*/
-
-    public static void inserePrimeiro(int[] v){
-
-        int indexMenor = getMenor(v);
-
-        for (int i = indexMenor; i >= 0; i--){
-            if (v[indexMenor] < v[i]){
-                swap(v, indexMenor, i);
-            }
-        }
-            
-    }
-
-    public static int getMenor(int[] v){
-        int menor = v[0];
-        int indexMenor = 0;
-
-        for (int i = 0; i < v.length; i++){
-            if (v[i] < menor){
-                indexMenor = i;
-            }
-        }
-        return indexMenor;
-    }
-
-    public static void swap(int[] v, int i, int j){
-        int aux = v[i];
-        v[i] = v[j];
-        v[j] = aux;
     }
 
 }
