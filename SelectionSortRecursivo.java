@@ -1,8 +1,9 @@
-import java.util.*;
+import java.util.Arrays;
+import java.util.Scanner;
 
-class InsertionSortRecursivo {
+class SelectionSortRecursivo {
     
-    public static void main(String[] args){
+     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
 
         String[] input = sc.nextLine().split((" "));
@@ -12,27 +13,28 @@ class InsertionSortRecursivo {
             numeros[i] = Integer.parseInt(input[i]); 
         }
 
-        insertionSortRecursivo(numeros, numeros.length);
+        selectionSortRecursivo(numeros, numeros.length);
         sc.close();
     }
 
-    public static void insertionSortRecursivo(int[] v, int n){
+    public static void selectionSortRecursivo(int[] v, int n){
 
         if (n <= 1) { //array com um ou menos elementos ja ta ordenado
             return;
         }
 
         // Ordena os primeiros n-1 elementos
-        insertionSortRecursivo(v, n - 1);
+        selectionSortRecursivo(v, n - 1);
 
-        int ultimo = v[n - 1]; //ultimo elemento
-        int i = n - 2; //indice que começa no penultimo elemento
-
-        while (i >= 0 && v[i] > ultimo) {
-            swap(v, i+1, i);;
-            i--;
+        for (int i = 0; i < n - 1; i++){
+            int indexMenor = i;
+            for (int j = i + 1; j < n; j++){
+                if (v[j] < v[indexMenor]){
+                    indexMenor = j;
+                }
+            }
+            swap(v, i, indexMenor);
         }
-
         System.out.println(Arrays.toString(v));
     }
 

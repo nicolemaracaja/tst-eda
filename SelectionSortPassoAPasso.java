@@ -27,14 +27,17 @@ class SelectionSortPassoAPasso{
                     indexMenor = j;
                 }
             }
+            if (indexMenor != i){
+                swap(array, i, indexMenor);
+            }
 
-        if (indexMenor != i){
-            int temp = array[indexMenor];
-            array[indexMenor] = array[i];
-            array[i] = temp;
+            System.out.println(Arrays.toString(array));
         }
-
-        System.out.println(Arrays.toString(array));
     }
+
+    public static void swap(int[] v, int i, int j){
+        int aux = v[i];
+        v[i] = v[j];
+        v[j] = aux;
     }
 }
