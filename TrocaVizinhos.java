@@ -15,6 +15,8 @@ class TrocaVizinhos {
 
         trocaVizinhos(array);
         System.out.println(Arrays.toString(array));
+
+        sc.close();
     }
 
     public static void trocaVizinhos(int[] v){
