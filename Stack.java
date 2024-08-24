@@ -73,6 +73,25 @@ public class Stack {
         return saida;
     }
 
+    public int indexOf(int value){
+        Stack aux = new Stack(this.topo + 1);
+        int index = -1;
+
+        while (!this.isEmpty()){
+            int current = this.pop();
+            if (current == value){
+                while (!aux.isEmpty()){
+                    this.push(aux.pop());
+                }
+                this.push(current);
+                return index;
+            }
+            aux.push(value);
+            index++;
+        }
+        return index;
+    }
+
     //tamanho da pilha
     public int size(){
         return this.topo + 1;
