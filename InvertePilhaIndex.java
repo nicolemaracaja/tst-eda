@@ -53,12 +53,12 @@ class Pilha {
         return this.topo + 1 == this.pilha.length; //verifica se o topo está no limite do array
     }
 
-    public void push(int valor){
+    public void push(String removido){
         if (this.isFull()){
             throw new RuntimeException("Pilha cheia!");
         }
         this.topo++;
-        this.pilha[topo] = valor; //incrementa o topo e atualiza o valor
+        this.pilha[topo] = removido; //incrementa o topo e atualiza o valor
     }
 
     public int pop(){
