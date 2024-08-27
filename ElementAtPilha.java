@@ -16,6 +16,10 @@ public class ElementAtPilha {
 
         Pilhazinha pilha = new Pilhazinha(valores.length);
 
+        for (int i = 0; i < valores.length; i++){
+            pilha.push(valores[i]);
+        }
+
         System.out.println(pilha.pegaValor(index));
         sc.close();
     }
@@ -87,29 +91,25 @@ class Pilhazinha {
     }
 
     public String pegaValor(int index){
-        Pilhazinha aux = new Pilhazinha(this.topo + 1);
-        int pos = 0;
-        String saida = "indice invalido";
-
-        if (index < 0 || index > this.topo){
+        if (index < 0 || index > this.topo) {
             return "indice invalido";
         }
 
-        while (!this.isEmpty()){
-            int removido = this.pop();
+        Pilhazinha aux = new Pilhazinha(this.topo + 1);
 
-            if (pos == index){
-                saida = Integer.toString(removido);
-            }       
-            aux.push(removido);
-            pos++;
+        while (!this.isEmpty()) {
+            aux.push(this.pop());
         }
 
-        while (!aux.isEmpty()){
+        int valor = -1;
+        for (int i = 0; i <= index; i++) {
+            valor = aux.pop();
+        }
+
+        while (!aux.isEmpty()) {
             this.push(aux.pop());
         }
 
-
-        return saida;
+        return Integer.toString(valor);
     }
 }
