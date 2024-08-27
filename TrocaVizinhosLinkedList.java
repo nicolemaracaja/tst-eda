@@ -1,4 +1,4 @@
-import java.util.Scanner;
+/*import java.util.Scanner;
 
 class TrocaVizinhosLinkedList {
     
@@ -111,4 +111,4 @@ class MeuNode {
         this.next = null;
         this.prev = null;
     }
-}
+}*/

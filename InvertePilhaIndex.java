@@ -1,4 +1,4 @@
-import java.util.NoSuchElementException;
+/*import java.util.NoSuchElementException;
 import java.util.*;
 
 class InvertePilhaIndex {
@@ -86,12 +86,12 @@ class MinhaPilha {
         }
     }
 
-    /*public int peek(){
+    public int peek(){
         if (this.isEmpty()){
             throw new NoSuchElementException("Pilha está vazia!");
         }
         return this.pilha[topo];
-    }*/
+    }
 
     public String toString(){
         MinhaPilha pilhaAux = new MinhaPilha(this.topo + 1);
@@ -116,7 +116,7 @@ class MinhaPilha {
     }
 
     //Retorna a posição da primeira ocorrência do valor
-    /*public int indexOf(int valor){
+    public int indexOf(int valor){
         Pilha pilhaAux = new Pilha(this.topo + 1);
         int pos = 0;
 
@@ -139,10 +139,10 @@ class MinhaPilha {
         }
 
         return -1;
-    }*/
+    }
 
     public int size(){
         return this.topo + 1;
     }
 
-}
+}*/

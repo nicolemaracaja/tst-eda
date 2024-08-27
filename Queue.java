@@ -1,4 +1,4 @@
-import java.util.NoSuchElementException;
+/*import java.util.NoSuchElementException;
 
 //FIFO - First in, first out (O primeiro que entra é o primeiro que sai)
 public class Queue {
@@ -153,4 +153,4 @@ public class Queue {
     public int size(){
         return this.size;
     }
-}
+}*/
