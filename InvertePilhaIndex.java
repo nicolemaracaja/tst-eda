@@ -19,7 +19,7 @@ class InvertePilhaIndex {
 
         int index = sc.nextInt();
 
-        Pilha pilha = new Pilha(tamanho);
+        MinhaPilha pilha = new MinhaPilha(tamanho);
 
         for (int i = 0; i < valores.length; i++){
             pilha.push(valores[i]);
@@ -35,12 +35,12 @@ class InvertePilhaIndex {
 
 }
 
-class Pilha {
+class MinhaPilha {
 
     private int topo;
     private int[] pilha;
 
-    public Pilha(int capacidade){
+    public MinhaPilha(int capacidade){
         this.pilha = new int[capacidade];
         this.topo = -1; //começa como uma posição inexistente
     }
@@ -53,7 +53,7 @@ class Pilha {
         return this.topo + 1 == this.pilha.length; //verifica se o topo está no limite do array
     }
 
-    public void push(String removido){
+    public void push(int removido){
         if (this.isFull()){
             throw new RuntimeException("Pilha cheia!");
         }
@@ -69,13 +69,13 @@ class Pilha {
     }
 
     public void inverteAteIndex(int index){
-        Pilha aux1 = new Pilha(index + 1);
+        MinhaPilha aux1 = new MinhaPilha(index + 1);
 
         for (int i = 0; i <= index; i++){
             aux1.push(this.pop());
         }
 
-        Pilha aux2 = new Pilha(index + 1);
+        MinhaPilha aux2 = new MinhaPilha(index + 1);
 
         while (!aux1.isEmpty()){
             aux2.push(aux1.pop());
@@ -94,7 +94,7 @@ class Pilha {
     }*/
 
     public String toString(){
-        Pilha pilhaAux = new Pilha(this.topo + 1);
+        MinhaPilha pilhaAux = new MinhaPilha(this.topo + 1);
         String saida = "";
 
         while (!this.isEmpty()){

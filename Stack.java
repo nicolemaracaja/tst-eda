@@ -52,7 +52,7 @@ public class Stack {
             return "";
         }
 
-        Pilha aux = new Pilha(this.topo + 1);
+        Stack aux = new Stack(this.topo + 1);
         String saida = "";
 
         while (!this.isEmpty()){

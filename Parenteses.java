@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Parenteses {
+class Parenteses {
     
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
@@ -17,7 +17,7 @@ public class Parenteses {
     }
 
     public static boolean sequenciaValida(String seq){
-        Stack pilha = new Stack(seq.length());
+        MinhaPilha pilha = new MinhaPilha(seq.length());
 
         for (int i = 0; i < seq.length(); i++){
             char c = seq.charAt(i);
@@ -42,12 +42,12 @@ public class Parenteses {
 }
 
 //LIFO - Last in, first out (O último que entra é o primeiro a sair)
-class Stack {
+class MinhaPilha {
     
     private int[] pilha;
     private int topo;
 
-    public Stack(int capacidade){
+    public MinhaPilha(int capacidade){
         this.pilha = new int[capacidade];
         this.topo = -1; //topo começa em uma posição inexistente
     }
@@ -93,7 +93,7 @@ class Stack {
             return "";
         }
 
-        Pilha aux = new Pilha(this.topo + 1);
+        MinhaPilha aux = new MinhaPilha(this.topo + 1);
         String saida = "";
 
         while (!this.isEmpty()){
@@ -115,7 +115,7 @@ class Stack {
     }
 
     public int indexOf(int value){
-        Stack aux = new Stack(this.topo + 1);
+        MinhaPilha aux = new MinhaPilha(this.topo + 1);
         int index = -1;
 
         while (!this.isEmpty()){
