@@ -8,12 +8,12 @@ public class PredecessorBST {
         String[] entrada = sc.nextLine().split(" ");
         int[] values = new int[entrada.length];
 
-        int n = sc.nextInt();
-        sc.nextLine();
-
         for (int i = 0; i < entrada.length; i++){
             values[i] = Integer.parseInt(entrada[i]);
         }
+
+        int n = sc.nextInt();
+        sc.nextLine();
 
         MinhaBST2 tree = new MinhaBST2();
 
@@ -21,19 +21,8 @@ public class PredecessorBST {
             tree.add(v);
         }
 
-        int predecessor = tree.predecessor(tree.getRoot()).value;
-
-        List<Integer> saida = new ArrayList<>();
-
-        for (int v : values){
-            if (v == predecessor){
-                break;
-            } else {
-                saida.add(v);
-            }
-        }
-
-        System.out.println();
+        List<Integer> caminho = tree.encontrarPredecessor(n);
+        System.out.println(caminho);
 
         sc.close();
     }
@@ -100,22 +89,27 @@ class MinhaBST2 {
         }
     }
 
-    public MeuNode2 predecessor(MeuNode2 current){
-        if (isEmpty()){
-            return null;
-        }
-        if (current == null){
-            return null;
-        }
-        if (current.left != null){
-            return max(current.left);
-        } else {
-            MeuNode2 aux = current.parent;
-            while (aux != null && aux.value > current.value){
-                aux = aux.parent;
+    public List<Integer> encontrarPredecessor(int value){
+        List<Integer> saida = new ArrayList<>();
+        MeuNode2 current = this.root;
+        MeuNode2 predecessor = null;
+
+        while (current != null){
+            saida.add(current.value);
+            if (value > current.value){
+                predecessor = current;
+                current = current.right;
+            } else if (value < current.value){
+                current = current.left;
+            } else {
+                if (current.left != null){
+                    predecessor = max(current.left);
+                    saida.add(predecessor.value);
+                }
+                break;
             }
-            return aux;
         }
+        return saida;
     }
 }
 
