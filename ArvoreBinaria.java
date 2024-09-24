@@ -1,4 +1,4 @@
-public class ArvoreBinaria {
+/*public class ArvoreBinaria {
 
     public static void main(String[] args){
         BST arvore = new BST();
@@ -18,16 +18,12 @@ class BST{
 
     Node root; //raiz
 
-    /**
-     * Verifica se a árvore é vazia
-     */
+    
     public boolean isEmpty(){
         return this.root == null;
     }
 
-    /**
-     * Adiciona um elemento à árvore de forma iterativa
-     */
+    
     public void add (int k){  
         Node newNode = new Node(k);
 
@@ -56,9 +52,7 @@ class BST{
         }
     }
 
-    /**
-     * Adiciona um elemento à árvore de forma recursiva
-     */
+    
     public void recursiveAdd(int v){
         if (isEmpty()){
             this.root = new Node(v);
@@ -85,9 +79,7 @@ class BST{
         }
     }
 
-    /**
-     * Procura por um elemento v na árvore de forma recursiva
-     */
+    
     public Node search(int v){
         if (isEmpty()){
             return null;
@@ -110,9 +102,7 @@ class BST{
         }
     }
 
-    /**
-     * Retorna a altura da árvore de forma recursiva
-     */
+    
     public int height(){
         return height(this.root);
     }
@@ -125,9 +115,7 @@ class BST{
         }
     }
 
-    /**
-     * Retorna o valor mínimo da árvore de forma recursiva
-     */
+    
     public Node min(){
         if (isEmpty()){
             return null;
@@ -143,9 +131,7 @@ class BST{
         }
     }
 
-    /**
-     * Retorna o valor máximo da árvore de forma recursiva
-     */
+    
     public Node max(){
         if (isEmpty()){
             return null;
@@ -161,9 +147,7 @@ class BST{
         }
     }
 
-    /**
-     * Retorna a quantidade de elementos na árvore
-     */
+    
     public int size(){
         return size(this.root);
     }
@@ -176,16 +160,12 @@ class BST{
         }
     }
 
-    /**
-     * Classifica a árvore em pré ordem
-     */
+    
     public void preOrder(){
         preOrder(this.root);
     }
 
-    /*
-     * nó, esquerda, direita
-     */
+    
     private void preOrder(Node current){
         if (current != null){
             System.out.println(current.value + " ");
@@ -194,16 +174,12 @@ class BST{
         }
     }
 
-    /**
-     * Classifica a árvore em ordem
-     */
+    
     public void inOrder(){
         inOrder(this.root);
     }
 
-    /*
-     * esquerda, nó, direita
-     */
+    
     private void inOrder(Node current){
         if (current != null){
             inOrder(current.left);
@@ -212,16 +188,12 @@ class BST{
         }
     }
 
-    /*
-     * Classifica a árvore em pós ordem
-     */
+    
     public void posOrder(){
         posOrder(this.root);
     }
 
-    /**
-     * esquerda, direita, nó
-     */
+    
     private void posOrder(Node current){
         if (current != null){
             posOrder(current.left);
@@ -241,8 +213,6 @@ class BST{
         return current.value + " " + toStringPreOrder(current.left) + toStringPreOrder(current.right);
     }
 
-}
-
 class Node {
 
     int value;
@@ -252,4 +222,4 @@ class Node {
     Node (int v){
         this.value = v;
     }
-}
+}*/

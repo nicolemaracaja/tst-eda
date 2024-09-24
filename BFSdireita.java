@@ -1,6 +1,6 @@
-/*import java.util.*;
+/*import java.util.Scanner;
 
-public class AlturaBST {
+class BFSdireita {
     
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
@@ -12,49 +12,50 @@ public class AlturaBST {
             values[i] = Integer.parseInt(entrada[i]);
         }
 
-        MinhaBST6 tree = new MinhaBST6();
+        MinhaBST7 tree = new MinhaBST7();
 
         for (int i = 0; i < entrada.length; i++){
             tree.add(values[i]);
         }
 
-        System.out.println(tree.height());
+        System.out.println(tree.bfsDireita());
+        
         sc.close();
     }
 }
 
-class MinhaBST6 {
+class MinhaBST7 {
 
-    MeuNode6 root;
+    MeuNode7 root;
 
-    public MinhaBST6(){
+    public MinhaBST7(){
         this.root = null;
     }
 
     public boolean isEmpty(){
         return this.root == null;
     }
-
+     
     public void add(int v){
-        if (isEmpty()){
-            this.root = new MeuNode6(v);
+        if(isEmpty()){
+            this.root = new MeuNode7(v);
         } else {
             recursiveAdd(this.root, v);
         }
     }
 
-    public void recursiveAdd(MeuNode6 current, int v){
+    public void recursiveAdd(MeuNode7 current, int v){
         if (v < current.value){
             if (current.left == null){
-                MeuNode6 newNode = new MeuNode6(v);
+                MeuNode7 newNode = new MeuNode7(v);
                 current.left = newNode;
                 newNode.parent = current;
             } else {
                 recursiveAdd(current.left, v);
             }
         } else {
-            if (current.right == null) {
-                MeuNode6 newNode = new MeuNode6(v);
+            if (current.right == null){
+                MeuNode7 newNode = new MeuNode7(v);
                 current.right = newNode;
                 newNode.parent = current;
             } else {
@@ -67,23 +68,50 @@ class MinhaBST6 {
         return height(this.root);
     }
 
-    public int height(MeuNode6 current){
+    public int height(MeuNode7 current){
         if (current == null){
-            return -1;
+            return 0;
         } else {
             return 1 + Math.max(height(current.left), height(current.right));
         }
     }
+
+    public String bfsDireita(){
+        if (root == null){
+            return "";
+        }
+        
+        String saida = "";
+        int height = height(this.root);
+
+        for (int i = 1; i <= height; i++){
+            saida += bfsDireita(this.root, i, saida);
+        }
+
+        return saida.trim();
+    }
+
+    public String bfsDireita(MeuNode7 current, int i, String saida){
+        if (current == null){
+            return "";
+        }
+        if (i == 1){
+            return current.value + " ";
+        } else if (i > 1){
+            return bfsDireita(current.right, i - 1, saida) + bfsDireita(current.left, i - 1, saida);
+        }
+        return "";
+    }
 }
 
-class MeuNode6 {
+class MeuNode7 {
 
     int value;
-    MeuNode6 left;
-    MeuNode6 right;
-    MeuNode6 parent;
+    MeuNode7 left;
+    MeuNode7 right;
+    MeuNode7 parent;
 
-    public MeuNode6(int v){
+    public MeuNode7(int v){
         this.value = v;
         this.left = null;
         this.right = null;

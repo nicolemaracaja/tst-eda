@@ -1,4 +1,4 @@
-import java.util.*;
+/*import java.util.*;
 
 public class PredecessorBST {
     
@@ -15,24 +15,26 @@ public class PredecessorBST {
         int n = sc.nextInt();
         sc.nextLine();
 
-        MinhaBST2 tree = new MinhaBST2();
+        BST tree = new BST();
 
         for (int v : values){
             tree.add(v);
         }
 
-        List<Integer> caminho = tree.encontrarPredecessor(n);
-        System.out.println(caminho);
+        ArrayList<Integer> predecessores = tree.encontraPredecessor(tree.search(n));
+        System.out.println(predecessores.toString());
 
         sc.close();
     }
 }
 
-class MinhaBST2 {
+class BST {
 
-    MeuNode2 root;
+    Node root;
+    private int size;
+    private ArrayList<Integer> predecessores;
 
-    public MinhaBST2(){
+    public BST(){
         this.root = null;
     }
 
@@ -40,22 +42,23 @@ class MinhaBST2 {
         return this.root == null;
     }
 
-    public MeuNode2 getRoot(){
+    public Node getRoot(){
         return this.root;
     }
 
     public void add(int value){
+        this.size++;
         if (isEmpty()){
-            this.root = new MeuNode2(value);
+            this.root = new Node(value);
         } else {
             recursiveAdd(this.root, value);
         }
     }
 
-    private void recursiveAdd(MeuNode2 current, int valor){
+    private void recursiveAdd(Node current, int valor){
         if (valor < current.value){
             if (current.left == null){
-                MeuNode2 newNode = new MeuNode2(valor);
+                Node newNode = new Node(valor);
                 current.left = newNode;
                 newNode.parent = current;
                 return;
@@ -64,16 +67,17 @@ class MinhaBST2 {
             }
         } else {
             if (current.right == null){
-                MeuNode2 newNode = new MeuNode2(valor);
+                Node newNode = new Node(valor);
                 current.right = newNode;
                 newNode.parent = current;
+                return;
             } else {
                 recursiveAdd(current.right, valor);
             }
         }
     }
 
-    public MeuNode2 max(){
+    public Node max(){
         if (isEmpty()){
             return null;
         } else {
@@ -81,7 +85,7 @@ class MinhaBST2 {
         }
     }
 
-    public MeuNode2 max(MeuNode2 current){
+    public Node max(Node current){
         if (current.right == null){
             return current;
         } else {
@@ -89,41 +93,135 @@ class MinhaBST2 {
         }
     }
 
-    public List<Integer> encontrarPredecessor(int value){
-        List<Integer> saida = new ArrayList<>();
-        MeuNode2 current = this.root;
-        MeuNode2 predecessor = null;
+    public Node min(){
+        if (isEmpty()){
+            return null;
+        } else {
+            return min(this.root);
+        }
+    }
 
-        while (current != null){
-            saida.add(current.value);
-            if (value > current.value){
-                predecessor = current;
-                current = current.right;
-            } else if (value < current.value){
-                current = current.left;
-            } else {
-                if (current.left != null){
-                    predecessor = max(current.left);
-                    saida.add(predecessor.value);
+    public Node min(Node current){
+        if (current.left == null){
+            return current;
+        } else {
+            return min(current.left);
+        }
+    }
+
+    public Node search(int element){
+        return search(this.root, element);
+    }
+
+    public Node search(Node current, int element){
+        if (current == null){
+            return null;
+        }
+        if (current.value == element){
+            return current;
+        } 
+        if (element < current.value){
+            return search(current.left, element);
+        } else {
+            return search(current.right, element);
+        }
+    }
+
+    //Maior valor menor que o current
+    public Node predecessor(Node current){
+        if (isEmpty()){
+            return null;
+        }
+        if (current == null){
+            return null;
+        }
+        if (current.left != null){
+            return max(current.left);
+        } else {    
+            Node aux = current.parent;
+
+            while (aux != null && aux.value > current.value){
+                aux = aux.parent;
+            }
+            return aux;
+        }
+    }
+
+    //Menor valor maior que o current
+    public Node sucessor(Node current){
+        if (isEmpty()){
+            return null;
+        }
+        if (current == null){
+            return null;
+        }
+        if (current.right != null){
+            return min(current.right);
+        } else {
+            Node aux = current.parent;
+
+            while (aux != null && aux.value < current.value){
+                aux = aux.parent;
+            }
+            return aux;
+        }
+    }
+
+    public ArrayList<Integer> encontraPredecessor(Node node){
+        predecessores = new ArrayList<>();
+        
+        if(node == null){
+            return null;
+        }
+
+        predecessores.add(node.value);
+        Node predecessor = predecessor(node);
+
+        if(node.left != null){
+            Node nodeAux = node.left;
+            while (nodeAux != null){
+                predecessores.add(nodeAux.value);
+                nodeAux = nodeAux.right;
+            }
+        } else {
+            Node nodeAux = node.parent;
+
+            while(nodeAux != null && nodeAux.value > node.value){
+                if (nodeAux == predecessor){
+                    predecessores.add(nodeAux.value);
+                    break;
+                } else {
+                    predecessores.add(nodeAux.value);
+                    nodeAux = nodeAux.parent;
                 }
-                break;
+            }
+
+            if(nodeAux != null){
+                predecessores.add(nodeAux.value);
             }
         }
-        return saida;
+
+        return predecessores;
+    }
+
+
+    public int size(){
+        return this.size;
     }
 }
 
-class MeuNode2 {
+class Node {
 
     int value;
-    MeuNode2 left;
-    MeuNode2 right;
-    MeuNode2 parent;
+    Node left;
+    Node right;
+    Node parent;
 
-    public MeuNode2(int v){
+    public Node(int v){
         this.value = v;
         this.left = null;
         this.right = null;
+        this.parent = null;
     }
 
-}
+}*/

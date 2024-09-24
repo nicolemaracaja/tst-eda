@@ -1,6 +1,6 @@
-/*import java.util.*;
+import java.util.Scanner;
 
-public class AlturaBST {
+class BalanceBST {
     
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
@@ -12,22 +12,22 @@ public class AlturaBST {
             values[i] = Integer.parseInt(entrada[i]);
         }
 
-        MinhaBST6 tree = new MinhaBST6();
+        BST tree = new BST();
 
         for (int i = 0; i < entrada.length; i++){
             tree.add(values[i]);
         }
 
-        System.out.println(tree.height());
+        System.out.println(tree.preOrder());
         sc.close();
     }
 }
 
-class MinhaBST6 {
+class BST {
 
-    MeuNode6 root;
+    Node root;
 
-    public MinhaBST6(){
+    public BST(){
         this.root = null;
     }
 
@@ -35,26 +35,30 @@ class MinhaBST6 {
         return this.root == null;
     }
 
+    public Node getRoot(){
+        return this.root;
+    }
+
     public void add(int v){
         if (isEmpty()){
-            this.root = new MeuNode6(v);
+            this.root = new Node(v);
         } else {
             recursiveAdd(this.root, v);
         }
     }
 
-    public void recursiveAdd(MeuNode6 current, int v){
+    public void recursiveAdd(Node current, int v){
         if (v < current.value){
             if (current.left == null){
-                MeuNode6 newNode = new MeuNode6(v);
+                Node newNode = new Node(v);
                 current.left = newNode;
                 newNode.parent = current;
             } else {
                 recursiveAdd(current.left, v);
             }
         } else {
-            if (current.right == null) {
-                MeuNode6 newNode = new MeuNode6(v);
+            if (current.right == null){
+                Node newNode = new Node(v);
                 current.right = newNode;
                 newNode.parent = current;
             } else {
@@ -67,26 +71,47 @@ class MinhaBST6 {
         return height(this.root);
     }
 
-    public int height(MeuNode6 current){
-        if (current == null){
+    public int height(Node node){
+        if (node == null){
             return -1;
         } else {
-            return 1 + Math.max(height(current.left), height(current.right));
+            return 1 + Math.max(height(node.left), height(node.right));
         }
+    }
+
+    public int calculaBalance(Node current){
+        int alturaEsquerda = height(current.left);
+        int alturaDireita = height(current.right);
+        return alturaEsquerda - alturaDireita;
+    }
+
+    //nó, esquerda, direita
+    public String preOrder(){
+        return preOrder(this.root).trim();
+    }
+
+    public String preOrder(Node current){
+        String saida = "";
+        if (current != null){
+            saida += current.value + "," + calculaBalance(current) + " "; 
+            saida += preOrder(current.left);
+            saida += preOrder(current.right);
+        }
+        return saida;
     }
 }
 
-class MeuNode6 {
+class Node {
 
     int value;
-    MeuNode6 left;
-    MeuNode6 right;
-    MeuNode6 parent;
+    Node left;
+    Node right;
+    Node parent;
 
-    public MeuNode6(int v){
+    public Node(int v){
         this.value = v;
         this.left = null;
         this.right = null;
         this.parent = null;
     }
-}*/
+}
