@@ -1,6 +1,6 @@
-/*import java.util.Scanner;
+import java.util.Scanner;
 
-class BalanceBST {
+public class EncaminhamentoLarguraBFS {
     
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
@@ -18,7 +18,8 @@ class BalanceBST {
             tree.add(values[i]);
         }
 
-        System.out.println(tree.preOrder());
+        System.out.println(tree.bfs());
+        
         sc.close();
     }
 }
@@ -35,10 +36,6 @@ class BST {
         return this.root == null;
     }
 
-    public Node getRoot(){
-        return this.root;
-    }
-
     public void add(int v){
         if (isEmpty()){
             this.root = new Node(v);
@@ -53,6 +50,7 @@ class BST {
                 Node newNode = new Node(v);
                 current.left = newNode;
                 newNode.parent = current;
+                return;
             } else {
                 recursiveAdd(current.left, v);
             }
@@ -61,6 +59,7 @@ class BST {
                 Node newNode = new Node(v);
                 current.right = newNode;
                 newNode.parent = current;
+                return;
             } else {
                 recursiveAdd(current.right, v);
             }
@@ -71,33 +70,39 @@ class BST {
         return height(this.root);
     }
 
-    public int height(Node node){
-        if (node == null){
-            return -1;
+    private int height(Node current){
+        if (current == null){
+            return 0;
         } else {
-            return 1 + Math.max(height(node.left), height(node.right));
+            return 1 + Math.max(height(current.left), height(current.right));
         }
     }
 
-    public int calculaBalance(Node current){
-        int alturaEsquerda = height(current.left);
-        int alturaDireita = height(current.right);
-        return alturaEsquerda - alturaDireita;
-    }
+    public String bfs(){
+        if (this.root == null){
+            return "";
+        }
 
-    //nó, esquerda, direita
-    public String preOrder(){
-        return preOrder(this.root).trim();
-    }
-
-    public String preOrder(Node current){
         String saida = "";
-        if (current != null){
-            saida += current.value + "," + calculaBalance(current) + " "; 
-            saida += preOrder(current.left);
-            saida += preOrder(current.right);
+        int altura = height(this.root);
+
+        for (int i = 1; i <= altura; i++){
+            saida += bfs(this.root, i);
         }
-        return saida;
+
+        return saida.trim();
+    }
+
+    private String bfs(Node current, int index){
+        if (current == null){
+            return "";
+        }
+        if (index == 1){
+            return current.value + " ";
+        } else if (index > 1) {
+            return bfs(current.left, index - 1) + bfs(current.right, index - 1);
+        }
+        return "";
     }
 }
 
@@ -114,4 +119,4 @@ class Node {
         this.right = null;
         this.parent = null;
     }
-}*/
+}

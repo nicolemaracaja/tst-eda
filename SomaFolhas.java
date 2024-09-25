@@ -1,4 +1,4 @@
-import java.util.Scanner;
+/*import java.util.Scanner;
 
 class SomaFolhas {
     
@@ -115,4 +115,4 @@ class MeuNode4 {
         this.right = null;
         this.parent = null;
     }
-}
+}*/

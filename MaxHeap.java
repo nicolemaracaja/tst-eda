@@ -1,6 +1,7 @@
-/*import java.util.*;
 
-public class BuildHeap {
+import java.util.Scanner;
+
+class MaxHeap {
     
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
@@ -8,13 +9,14 @@ public class BuildHeap {
         String[] entrada = sc.nextLine().split(" ");
         int[] heapArray = new int[entrada.length];
 
-        for (int i = 0; i < entrada.length; i++){
+        for (int i = 0; i < entrada.length; i++) {
             heapArray[i] = Integer.parseInt(entrada[i]);
         }
 
         Heap heap = new Heap(heapArray);
-        System.out.println(Arrays.toString(heap.heap));
-        
+
+        System.out.println(heap.isMaxHeap());
+
         sc.close();
     }
 }
@@ -24,17 +26,19 @@ class Heap {
     int[] heap;
     int tail;
 
-    //construtor que cria um heap vazio
     public Heap(int capacidade){
         this.heap = new int[capacidade];
         this.tail = -1;
     }
 
-    //construtor que organiza os elementos do array em uma estrutura heap
     public Heap(int[] heap){
         this.heap = heap;
         this.tail = this.heap.length - 1;
-        this.buildHeap();
+        //this.buildHeap(); //constrói o heap a partir do array de entrada
+    }
+
+    public int[] getHeapArray(){
+        return this.heap;
     }
 
     public boolean isEmpty(){
@@ -53,10 +57,9 @@ class Heap {
         return (i - 1) / 2;
     }
 
-    //adiciona um elemento ao heap, inserindo-o no final do array e ordenando 
     public void add(int n){
         if (tail >= heap.length - 1){
-            resize();
+            resize(); //aumenta o array, se necessário
         }
 
         this.tail++;
@@ -64,47 +67,31 @@ class Heap {
 
         int i = tail;
         while (i > 0 && this.heap[parent(i)] < this.heap[i]){
-            swap(i, parent(i));
+            swap(i, parent(i)); //troca com o pai, se ele for menor que o filho
             i = parent(i);
         }
     }
 
-    //troca os elementos nas posições i e j do array heap
-    public void swap(int i, int j){
-        int aux = this.heap[i];
-        this.heap[i] = this.heap[j];
-        this.heap[j] = aux;
-    }
-
-    //dobra o tamanho do array heap quando o limite é atingido
-    public void resize(){
-        int[] novoHeap = new int[this.heap.length * 2];
-        for (int i = 0; i <= tail; i++){
-            novoHeap[i] = this.heap[i];
-        }
-        this.heap = novoHeap;
-    }
-
-    //remove sempre a raiz e reestrutura o heap
     public int remove(){
         if (isEmpty()){
             throw new RuntimeException();
         }
-        int element = this.heap[0]; //pega o elemento da raiz
+
+        int element = this.heap[0]; //pega a raiz;
         this.heap[0] = this.heap[tail]; //troca a raiz com o último
-        this.tail--; //remove o último
-        
-        this.heapify(0);
+        this.tail--; //remove o último(raiz)
+
+        this.heapify(0); //reordena o heap
         return element;
     }
 
-    //compara o nó atual com seus filhos e troca de lugar com o maior deles
     public void heapify(int i){
         if (isLeaf(i) || !isValidIndex(i)){
             return;
         }
 
-        int index_max = max_index(i, left(i), right(i));
+        //encontra o maior
+        int index_max = max_index(i, left(i), right(i)); 
 
         if (index_max != i){
             swap(i, index_max);
@@ -112,7 +99,6 @@ class Heap {
         }
     }
 
-    //determina o índice de maior valor entre o nó e seus filhos
     public int max_index(int i, int left, int right){
         if (isValidIndex(left) && this.heap[i] < this.heap[left]){
             i = left;
@@ -126,20 +112,45 @@ class Heap {
     }
 
     //verifica se o nó é uma folha
-    public boolean isLeaf(int i){
-        return i > parent(tail) && i <= tail;
+    public boolean isLeaf(int index){
+        return index > parent(tail) && index <= tail; 
     }
 
-    //verifica se o índice é valido
-    public boolean isValidIndex(int i){
-        return i >= 0 && i <= tail;
+    public boolean isValidIndex(int index){
+        return index >= 0 && index <= tail; 
     }
 
-    //constroi o heap chamando o heapify de baixo para cima
-    public void buildHeap(){
+    public void swap(int i, int j){
+        int aux = this.heap[i];
+        this.heap[i] = this.heap[j];
+        this.heap[j] = aux;
+    }
+
+    public void resize(){
+        int[] novoHeap = new int[this.heap.length * 2]; //dobra o tamanho
+        for (int i = 0; i <= tail; i++){
+            novoHeap[i] = this.heap[i]; //copia os elementos antigos para o novo array
+        }
+        this.heap = novoHeap;
+    }
+
+    /*public void buildHeap(){
         for (int i = parent(this.tail); i >= 0; i--){
             heapify(i);
         }
-    }
+    }*/
 
-}*/
+    public boolean isMaxHeap(){
+        for (int i = 0; i <= (tail - 1) / 2; i++){
+            //verifica se o nó pai é maior que o filho esquerdo
+            if (left(i) <= tail && heap[i] < heap[left(i)]){
+                return false;
+            }
+            //verifica se o nó pai é maior que o filho direito
+            if (right(i) <= tail && heap[i] < heap[right(i)]){
+                return false;
+            }
+        }
+        return true;
+    }
+}
