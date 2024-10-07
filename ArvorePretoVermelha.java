@@ -209,6 +209,7 @@ public class ArvorePretoVermelha {
                         NodePV newNode = new NodePV(element, vermelho);
                         aux.left = newNode;
                         newNode.parent = aux;
+                        ehCaso1(newNode); //chamada pra corrigir a árvore
                         return;
                     }
                     
@@ -218,6 +219,7 @@ public class ArvorePretoVermelha {
                         NodePV newNode = new NodePV(element, vermelho);
                         aux.right = newNode;
                         newNode.parent = aux;
+                        ehCaso1(newNode); //chamada pra corrigir a árvore
                         return;
                     }
                     
