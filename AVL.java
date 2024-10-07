@@ -15,13 +15,13 @@ public class AVL {
     }
 
     //verifica se a árvore pende para a esquerda
-    public boolean isLeftPending(Node node){
-        return balance(node) > 1;
+    public boolean isLeftPending(){
+        return balance(this.root) > 1;
     }
 
     //verifica se a árvore pende para a direita
-    public boolean isRightPending(Node node){
-        return balance(node) < 1;
+    public boolean isRightPending(){
+        return balance(this.root) < 1;
     }
 
     //verifica se a árvore está balanceada com recursão
@@ -56,22 +56,6 @@ public class AVL {
         }
     }
 
-    public Node verificaDesbalanceamento(Node node){
-        Node aux = node;
-
-        while (aux != null){
-            if (!isBalanced(aux)){
-                return aux;
-            } else if (aux.parent != null){
-                aux = aux.parent;
-            } else {
-                break;
-            }
-        }
-
-        return null;
-    }
-
     //calcula o balance dos nós
     private int balance(Node node) {
         if (node == null){
@@ -81,14 +65,35 @@ public class AVL {
         }
     }
 
-    //rotação para a esquerda
+    //rotação para a esquerda (desbalanceado para a direita)
     public Node rotateLeft(Node current){
         Node pivot = current.right;
-        pivot.parent = current.parent;
-
         current.right = pivot.left;
         pivot.left = current;
 
+        pivot.parent = current.parent;
+        current.parent = pivot;
+
+        if (pivot.parent != null){
+            if (pivot.parent.left == current){
+                pivot.parent.left = pivot;
+            } else {
+                pivot.parent.right = pivot;
+            }
+        } else {
+            this.root = pivot;
+        }
+        
+        return pivot;
+    }
+
+    //rotação para a direita (desbalanceado para a esquerda)
+    public Node rotateRight(Node current){
+        Node pivot = current.left;
+        current.left = pivot.right;
+        pivot.right = current;
+
+        pivot.parent = current.parent;
         current.parent = pivot;
 
         if (pivot.parent != null){
@@ -100,63 +105,30 @@ public class AVL {
         } else {
             this.root = pivot;
         }
-
+        
         return pivot;
     }
 
-    //rotação para a direita
-    public Node rotateRight(Node current){
-        Node pivot = current.left;
-        pivot.parent = current.parent;
-
-        current.left = pivot.right;
-        pivot.right = current;
-
-        current.parent = pivot;
-
-        if (pivot.parent != null){
-            if (pivot.parent.left == current){
-                pivot.parent.left = pivot;
-            } else {
-                pivot.parent.right = pivot;
-            } 
-        } else {
-            this.root = pivot;
-        }
-
-        return pivot;
-    }
-
-    public void chamaMelhorRotacao(Node desbalanceado){
-        Node pivot = desbalanceado;
-
-        if (isLeftPending(pivot)){
-            Node x = pivot.left;
-
-            if (x.left != null){
-                rotateRight(pivot);
-            } else {
-                rotateLeft(x);
-                rotateRight(pivot);
-            }
-        } else {
-            Node x = pivot.right;
-
-            if (x.right != null){
-                rotateLeft(pivot);
-            } else {
-                rotateRight(x);
-                rotateLeft(pivot);
-            }
-        }
-    }
-
-    public void rebalance(Node current){
+    public Node rebalance(Node current){
         int balanceFactor = balance(current);
 
-        if (Math.abs(balanceFactor) > 1){
-            chamaMelhorRotacao(current);
+        //desbalanceado para a esquerda (rotaciona para a direita)
+        if (balanceFactor > 1){
+            if (balance(current.left) < 0){
+                current.left = rotateLeft(current.left);
+            }
+            return rotateRight(current);
         }
+
+        //desbalanceado para a direita (rotaciona para a esquerda)
+        if (balanceFactor < -1){
+            if (balance(current.right) > 0){
+                current.right = rotateRight(current.right);
+            }
+            return rotateLeft(current);
+        }
+
+        return current;
     }
 
     /**
@@ -203,12 +175,6 @@ public class AVL {
                         Node newNode = new Node(element);
                         aux.left = newNode;
                         newNode.parent = aux;
-
-                        Node desbalanceado = verificaDesbalanceamento(newNode);
-                        if (desbalanceado != null){
-                            chamaMelhorRotacao(desbalanceado);
-                        }
-
                         return;
                     }
                     
@@ -218,18 +184,14 @@ public class AVL {
                         Node newNode = new Node(element);
                         aux.right = newNode;
                         newNode.parent = aux;
-
-                        Node desbalanceado = verificaDesbalanceamento(newNode);
-                        if (desbalanceado != null){
-                            chamaMelhorRotacao(desbalanceado);
-                        }
-
                         return;
                     }
                     
                     aux = aux.right;
                 }
             }
+
+            this.root = rebalance(this.root);
         }
 
     }
@@ -350,26 +312,17 @@ public class AVL {
                 Node newNode = new Node(element);
                 node.left = newNode;
                 newNode.parent = node;
-
-                rebalance(node);
-
                 return;
             }
             recursiveAdd(node.left, element);
-            rebalance(node);
-
         } else {
             if (node.right == null) {
                 Node newNode = new Node(element);
                 node.right = newNode;
                 newNode.parent = node;
-
-                rebalance(node);
-
                 return;
             }
             recursiveAdd(node.right, element);
-            rebalance(node);
         }
         
     }
@@ -383,6 +336,8 @@ public class AVL {
         if (toRemove != null) {
             remove(toRemove);
             this.size -= 1;
+
+            this.root = rebalance(this.root);
         }
         
     }
@@ -434,6 +389,8 @@ public class AVL {
             toRemove.value = sucessor.value;
             remove(sucessor);
         }
+
+        this.root = rebalance(this.root);
             
     }
 
