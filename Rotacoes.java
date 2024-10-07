@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Rotacoes {
+class Rotacoes {
     
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
@@ -15,7 +15,10 @@ public class Rotacoes {
 
         if (avl.isBalanced()){
             System.out.println("balanceada");
+        } else {
+            avl.root = avl.balancear(avl.root);
         }
+
         sc.close();
     }
 }
@@ -28,26 +31,40 @@ class AVL {
         this.root = null;
     }
 
+    public boolean isEmpty(){
+        return this.root == null;
+    }
+
     public boolean isBalanced(){
         return Math.abs(height(this.root.left) - height(this.root.right)) <= 1;
     }
 
     public void add(int v){
-        this.root = add(this.root, v);
+        if (isEmpty()){
+            this.root = new No(v);
+        } else {
+            recursiveAdd(this.root, v);
+        }
     }
 
-    public No add(No current, int v){
-        if (current == null){
-            return new No(v);
-        }
-
+    public void recursiveAdd(No current, int v){
         if (v < current.value){
-            current.left = add(current.left, v);
+            if (current.left == null){
+                No newNode = new No(v);
+                current.left = newNode;
+                newNode.parent = current;
+                return;
+            } else {
+                recursiveAdd(current.left, v);
+            }
         } else {
-            current.right = add(current.right, v);
+            if (current.right == null){
+                No newNode = new No(v);
+                current.right = newNode;
+                newNode.parent = current;
+                return;
+            }
         }
-
-        return balancear(current);
     }
 
     public int balance(No current){
@@ -72,23 +89,25 @@ class AVL {
     }
 
     public No balancear(No current) {
+        if (current == null){
+            return null;
+        }
+
         int balance = balance(current);
 
-        if (balance > 1 && (height(current.left.left)) >= height(current.left.right)){
+        //desbalanceado para a esquerda (rotaciona para a direita)
+        if (balance > 1){
+            if (balance(current.left) < 0){
+                current.left = rotacaoEsquerda(current.left);
+            }
             return rotacaoDireita(current);
         }
 
-        if (balance < -1 && (height(current.right.right) >= height(current.right.left))){
-            return rotacaoEsquerda(current);
-        }
-
-        if (balance > 1 && (height(current.left.right) > height(current.left.left))){
-            current.left = rotacaoEsquerda(current.left);
-            return rotacaoDireita(current);
-        }
-
-        if (balance < -1 && (height(current.right.left) > height(current.right.right))){
-            current.right = rotacaoDireita(current.right);
+        //desbalanceado para a direita (rotaciona para a esquerda)
+        if (balance < -1){
+            if (balance(current.right) > 0){
+                current.right = rotacaoDireita(current.right);
+            }
             return rotacaoEsquerda(current);
         }
 
@@ -96,11 +115,26 @@ class AVL {
     }
 
     public No rotacaoDireita(No current){
-        No pivot = current.left;
+        No pivot = current.left; 
         current.left = pivot.right;
         pivot.right = current;
+
+        //atualiza os pais
+        pivot.parent = current.parent;
+        current.parent = pivot;
+
+        if (pivot.parent != null){
+            if (pivot.parent.left == current){
+                pivot.parent.left = pivot;
+            } else {
+                pivot.parent.right = pivot;
+            }
+        } else {
+            this.root = pivot;
+        }
+
         System.out.println("rot_dir(" + current.value + ")");
-        imprimirPreOrdem(pivot);
+        imprimirPreOrdem(this.root);
         return pivot; // retorna a nova raiz
     }
 
@@ -108,16 +142,38 @@ class AVL {
         No pivot = current.right;
         current.right = pivot.left;
         pivot.left = current;
+
+        //atualiza os pais
+        pivot.parent = current.parent;
+        current.parent = pivot;
+
+        if (pivot.parent != null){
+            if (pivot.parent.right == current){
+                pivot.parent.right = pivot;
+            } else {
+                pivot.parent.left = pivot;
+            }
+        } else {
+            this.root = pivot;
+        }
+
         System.out.println("rot_esq(" + current.value + ")");
-        imprimirPreOrdem(pivot);
+        imprimirPreOrdem(this.root);
         return pivot; // retorna a nova raiz
     }
 
+
     public void imprimirPreOrdem(No current){
+        List<Integer> result = new ArrayList<>();
+        imprimirPreOrdem(current, result);
+        System.out.println(result);
+    }
+
+    public void imprimirPreOrdem(No current, List<Integer> result){
         if (current != null){
-            System.out.println(current.value + " ");
-            imprimirPreOrdem(current.left);
-            imprimirPreOrdem(current.right);
+            result.add(current.value);
+            imprimirPreOrdem(current.left, result);
+            imprimirPreOrdem(current.right, result);
         }
     }
 }
@@ -135,3 +191,4 @@ class No {
         this.parent = null;
     }
 }
+
