@@ -40,31 +40,23 @@ class AVL {
     }
 
     public void add(int v){
-        if (isEmpty()){
-            this.root = new No(v);
-        } else {
-            recursiveAdd(this.root, v);
-        }
+        this.root = add(this.root, v, null);
     }
 
-    public void recursiveAdd(No current, int v){
-        if (v < current.value){
-            if (current.left == null){
-                No newNode = new No(v);
-                current.left = newNode;
-                newNode.parent = current;
-                return;
-            } else {
-                recursiveAdd(current.left, v);
-            }
-        } else {
-            if (current.right == null){
-                No newNode = new No(v);
-                current.right = newNode;
-                newNode.parent = current;
-                return;
-            }
+    public No add(No current, int v, No parent){
+        if (current == null){
+            No newNode = new No(v);
+            newNode.parent = parent;
+            return newNode;
         }
+
+        if (v < current.value){
+            current.left = add(current.left, v, current);
+        } else {
+            current.right = add(current.right, v, current);
+        }
+
+        return current;
     }
 
     public int balance(No current){
