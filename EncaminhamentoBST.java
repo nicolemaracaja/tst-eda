@@ -1,4 +1,4 @@
-/*import java.util.*;
+import java.util.*;
 
 public class EncaminhamentoBST {
     
@@ -125,4 +125,4 @@ class MeuNode {
         this.right = null;
         this.parent = null;
     }
-}*/
+}
