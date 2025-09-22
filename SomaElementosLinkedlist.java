@@ -1,4 +1,4 @@
-/*class SomaElementosLinkedlist {
+class SomaElementosLinkedlist {
     
     public static void main(String[] args){
         int[] valores = new int[]{1, 2, 3, 4, 5, 6};
@@ -77,5 +77,5 @@ class Node {
         this.prev = null;
         this.next = null;
     }
-}*/
+}
 
