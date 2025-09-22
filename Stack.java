@@ -1,4 +1,4 @@
-/*import java.util.NoSuchElementException;
+import java.util.NoSuchElementException;
 
 //LIFO - Last in, first out (O último que entra é o primeiro a sair)
 public class Stack {
@@ -96,4 +96,4 @@ public class Stack {
     public int size(){
         return this.topo + 1;
     }
-}*/
+}
