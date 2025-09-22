@@ -1,4 +1,4 @@
-/*import java.util.Scanner;
+import java.util.Scanner;
 
 class BFSdireita {
     
@@ -12,7 +12,7 @@ class BFSdireita {
             values[i] = Integer.parseInt(entrada[i]);
         }
 
-        MinhaBST7 tree = new MinhaBST7();
+        MinhaBST tree = new MinhaBST();
 
         for (int i = 0; i < entrada.length; i++){
             tree.add(values[i]);
@@ -24,11 +24,11 @@ class BFSdireita {
     }
 }
 
-class MinhaBST7 {
+class MinhaBST {
 
-    MeuNode7 root;
+    MeuNode root;
 
-    public MinhaBST7(){
+    public MinhaBST(){
         this.root = null;
     }
 
@@ -47,7 +47,7 @@ class MinhaBST7 {
     public void recursiveAdd(MeuNode7 current, int v){
         if (v < current.value){
             if (current.left == null){
-                MeuNode7 newNode = new MeuNode7(v);
+                MeuNode newNode = new MeuNode(v);
                 current.left = newNode;
                 newNode.parent = current;
             } else {
@@ -55,7 +55,7 @@ class MinhaBST7 {
             }
         } else {
             if (current.right == null){
-                MeuNode7 newNode = new MeuNode7(v);
+                MeuNode newNode = new MeuNode(v);
                 current.right = newNode;
                 newNode.parent = current;
             } else {
@@ -104,17 +104,17 @@ class MinhaBST7 {
     }
 }
 
-class MeuNode7 {
+class MeuNode {
 
     int value;
     MeuNode7 left;
     MeuNode7 right;
     MeuNode7 parent;
 
-    public MeuNode7(int v){
+    public MeuNode(int v){
         this.value = v;
         this.left = null;
         this.right = null;
         this.parent = null;
     }
-}*/
+}
