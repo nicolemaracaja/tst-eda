@@ -1,4 +1,4 @@
-/*import java.util.Scanner;
+import java.util.Scanner;
 
 class BalanceBST {
     
@@ -114,4 +114,4 @@ class Node {
         this.right = null;
         this.parent = null;
     }
-}*/
+}
