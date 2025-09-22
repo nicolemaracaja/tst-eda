@@ -1,4 +1,4 @@
-/*import java.util.*;
+import java.util.*;
 
 public class ElementosMaioresBST {
     
@@ -12,7 +12,7 @@ public class ElementosMaioresBST {
             values[i] = Integer.parseInt(entrada[i]);
         }
 
-        MinhaBST5 tree = new MinhaBST5();
+        MinhaBST tree = new MinhaBST();
 
         for (int i = 0; i < entrada.length; i++){
             tree.add(values[i]);
@@ -29,11 +29,11 @@ public class ElementosMaioresBST {
     }
 }
 
-class MinhaBST5 { 
+class MinhaBST { 
 
-    MeuNode5 root;
+    MeuNode root;
 
-    public MinhaBST5(){
+    public MinhaBST(){
         this.root = null;
     }
 
@@ -41,11 +41,11 @@ class MinhaBST5 {
         return this.root == null;
     }
 
-    public MeuNode5 getNode(int v){
+    public MeuNode getNode(int v){
         if (isEmpty()){
             return null;
         } else {
-            MeuNode5 aux = this.root;
+            MeuNode aux = this.root;
 
             while (aux != null){
                 if (v == aux.value){
@@ -68,10 +68,10 @@ class MinhaBST5 {
         }
     }
 
-    public void recursiveAdd(MeuNode5 current, int v){
+    public void recursiveAdd(MeuNode current, int v){
         if (v < current.value){
             if (current.left == null){
-                MeuNode5 newNode = new MeuNode5(v);
+                MeuNode newNode = new MeuNode(v);
                 current.left = newNode;
                 newNode.parent = current;
             } else {
@@ -79,7 +79,7 @@ class MinhaBST5 {
             }
         } else {
             if (current.right == null){
-                MeuNode5 newNode = new MeuNode5(v);
+                MeuNode newNode = new MeuNode(v);
                 current.right = newNode;
                 newNode.parent = current;
             } else {
@@ -94,7 +94,7 @@ class MinhaBST5 {
         return result;
     }
 
-    public void preOrder(MeuNode5 current, List<Integer> result){
+    public void preOrder(MeuNode current, List<Integer> result){
         if (current != null){
             result.add(current.value);
             preOrder(current.left, result);
@@ -106,7 +106,7 @@ class MinhaBST5 {
         return qtdElementosMaiores(this.root, v);
     }
 
-    public int qtdElementosMaiores(MeuNode5 current, int v){
+    public int qtdElementosMaiores(MeuNode current, int v){
         if (current == null){
             return 0;
         } 
@@ -128,14 +128,14 @@ class MinhaBST5 {
     //left, right, sysout
 }
 
-class MeuNode5 {
+class MeuNode {
 
     int value;
-    MeuNode5 left;
-    MeuNode5 right;
-    MeuNode5 parent;
+    MeuNode left;
+    MeuNode right;
+    MeuNode parent;
 
-    public MeuNode5(int v){
+    public MeuNode(int v){
         this.value = v;
         this.left = null;
         this.right = null;
