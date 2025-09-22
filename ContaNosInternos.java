@@ -1,4 +1,4 @@
-/*import java.util.*;
+import java.util.*;
 
 class ContaNosInternos {
     
@@ -12,7 +12,7 @@ class ContaNosInternos {
             values[i] = Integer.parseInt(entrada[i]);
         }
 
-        MinhaBST3 tree = new MinhaBST3();
+        MinhaBST tree = new MinhaBST();
 
         for (int i = 0; i < entrada.length; i++){
             tree.add(values[i]);
@@ -21,7 +21,7 @@ class ContaNosInternos {
         int result = 0;
 
         for (int i = 0; i < entrada.length; i++){   
-            MeuNode3 no = tree.getNode(values[i]);
+            MeuNode no = tree.getNode(values[i]);
 
             if (!tree.isLeaf(no)){
                 result++;
@@ -33,11 +33,11 @@ class ContaNosInternos {
     }
 }
 
-class MinhaBST3{
+class MinhaBST{
 
     MeuNode3 root;
 
-    public MinhaBST3(){
+    public MinhaBST(){
         this.root = null;
     }
 
@@ -45,22 +45,22 @@ class MinhaBST3{
         return this.root == null;
     }
 
-    public MeuNode3 getRoot(){
+    public MeuNode getRoot(){
         return this.root;
     }
 
     public void add(int v){
         if (isEmpty()){
-            this.root = new MeuNode3(v);
+            this.root = new MeuNode(v);
         } else {
             recursiveAdd(this.root, v);
         }
     }
 
-    public void recursiveAdd(MeuNode3 current, int value){
+    public void recursiveAdd(MeuNode current, int value){
         if (value < current.value){
             if (current.left == null){
-                MeuNode3 newNode = new MeuNode3(value);
+                MeuNode newNode = new MeuNode(value);
                 current.left = newNode;
                 newNode.parent = current;
             } else {
@@ -68,7 +68,7 @@ class MinhaBST3{
             }
         } else { //value > current.value
             if (current.right == null){
-                MeuNode3 newNode = new MeuNode3(value);
+                MeuNode newNode = new MeuNode(value);
                 current.right = newNode;
                 newNode.parent = current;
             } else {
@@ -77,11 +77,11 @@ class MinhaBST3{
         }
     }
 
-    public MeuNode3 getNode(int v){
+    public MeuNode getNode(int v){
         if (isEmpty()){
             return null;
         } else {
-            MeuNode3 aux = this.root;
+            MeuNode aux = this.root;
 
             while (aux != null){
                 if (v == aux.value){
@@ -96,19 +96,19 @@ class MinhaBST3{
         return null;
     }
 
-    public boolean isLeaf(MeuNode3 current){
+    public boolean isLeaf(MeuNode current){
         return current.left == null & current.right == null;
     }
 }
 
-class MeuNode3{
+class MeuNode{
 
     int value;
-    MeuNode3 left;
-    MeuNode3 right;
-    MeuNode3 parent;
+    MeuNode left;
+    MeuNode right;
+    MeuNode parent;
 
-    public MeuNode3(int v){
+    public MeuNode(int v){
         this.value = v;
         this.left = null;
         this.right = null;
