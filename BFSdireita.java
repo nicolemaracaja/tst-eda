@@ -107,9 +107,9 @@ class MinhaBST {
 class MeuNode {
 
     int value;
-    MeuNode7 left;
-    MeuNode7 right;
-    MeuNode7 parent;
+    MeuNode left;
+    MeuNode right;
+    MeuNode parent;
 
     public MeuNode(int v){
         this.value = v;
