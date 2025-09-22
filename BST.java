@@ -1,4 +1,4 @@
-/*public class BST {
+public class BST {
     
     private Node root;
 
@@ -239,4 +239,4 @@ class Node{
         this.value = v;
     }
 
-}*/
+}
