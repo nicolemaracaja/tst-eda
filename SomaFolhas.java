@@ -1,4 +1,4 @@
-/*import java.util.Scanner;
+import java.util.Scanner;
 
 class SomaFolhas {
     
@@ -12,7 +12,7 @@ class SomaFolhas {
             values[i] = Integer.parseInt(entrada[i]);
         }
 
-        MinhaBST4 tree = new MinhaBST4();
+        MinhaBST tree = new MinhaBST();
 
         for (int v : values){
             tree.add(v);
@@ -34,11 +34,11 @@ class SomaFolhas {
     }
 }
 
-class MinhaBST4 {
+class MinhaBST {
 
-    MeuNode4 root;
+    MeuNode root;
 
-    public MinhaBST4(){
+    public MinhaBST(){
         this.root = null;
     }
 
@@ -46,15 +46,15 @@ class MinhaBST4 {
         return this.root == null;
     }
 
-    public MeuNode4 getRoot(){
+    public MeuNode getRoot(){
         return this.root;
     }
 
-    public MeuNode4 getNode(int v){
+    public MeuNode getNode(int v){
         if (isEmpty()){
             return null;
         } else {
-            MeuNode4 aux = this.root;
+            MeuNode aux = this.root;
 
             while (aux != null){
                 if (v == aux.value){
@@ -69,22 +69,22 @@ class MinhaBST4 {
         return null;
     }
 
-    public boolean isLeaf(MeuNode4 current){
+    public boolean isLeaf(MeuNode current){
         return current.left == null && current.right == null;
     }
 
     public void add(int v){
         if (isEmpty()){
-            this.root = new MeuNode4(v);
+            this.root = new MeuNode(v);
         } else {
             recursiveAdd(this.root, v);
         }
     }
 
-    public void recursiveAdd(MeuNode4 current, int v){
+    public void recursiveAdd(MeuNode current, int v){
         if (v < current.value){
             if (current.left == null){
-                MeuNode4 newNode = new MeuNode4(v);
+                MeuNode newNode = new MeuNode(v);
                 current.left = newNode;
                 newNode.parent = current;
             } else {
@@ -92,7 +92,7 @@ class MinhaBST4 {
             }
         } else {
             if (current.right == null){
-                MeuNode4 newNode = new MeuNode4(v);
+                MeuNode newNode = new MeuNode(v);
                 current.right = newNode;
                 newNode.parent = current;
             } else {
@@ -102,14 +102,14 @@ class MinhaBST4 {
     }
 }
 
-class MeuNode4 {
+class MeuNode {
 
     int value;
-    MeuNode4 left;
-    MeuNode4 right;
-    MeuNode4 parent;
+    MeuNode left;
+    MeuNode right;
+    MeuNode parent;
 
-    public MeuNode4(int v){
+    public MeuNode(int v){
         this.value = v;
         this.left = null;
         this.right = null;
