@@ -1,4 +1,4 @@
-/*import java.util.*;
+import java.util.*;
 
 class ValorMaisProximoBST {
     
@@ -115,4 +115,4 @@ class MeuNode{
         this.left = null;
         this.right = null;
     }
-}*/
+}
