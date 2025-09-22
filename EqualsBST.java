@@ -1,4 +1,4 @@
-/*import java.util.Scanner;
+import java.util.Scanner;
 
 public class EqualsBST {
     
@@ -12,7 +12,7 @@ public class EqualsBST {
             values1[i] = Integer.parseInt(entrada1[i]);
         }
 
-        MinhaBST8 tree1 = new MinhaBST8();
+        MinhaBST tree1 = new MinhaBST();
 
         for (int i = 0; i < entrada1.length; i++){
             tree1.add(values1[i]);
@@ -25,7 +25,7 @@ public class EqualsBST {
             values2[i] = Integer.parseInt(entrada2[i]);
         }
 
-        MinhaBST8 tree2 = new MinhaBST8();
+        MinhaBST tree2 = new MinhaBST();
 
         for (int i = 0; i < entrada2.length; i++){
             tree2.add(values2[i]);
@@ -36,12 +36,12 @@ public class EqualsBST {
     }
 }
 
-class MinhaBST8 {
+class MinhaBST {
 
-    MeuNode8 root;
+    MeuNode root;
     int size;
 
-    public MinhaBST8(){
+    public MinhaBST(){
         this.root = null;
     }
 
@@ -51,7 +51,7 @@ class MinhaBST8 {
 
     public void add(int v){
         if (isEmpty()){
-            this.root = new MeuNode8(v);
+            this.root = new MeuNode(v);
         } else {
             recursiveAdd(this.root, v);
         }
@@ -61,7 +61,7 @@ class MinhaBST8 {
     public void recursiveAdd(MeuNode8 current, int v){
         if (v < current.value){
             if (current.left == null){
-                MeuNode8 newNode = new MeuNode8(v);
+                MeuNode newNode = new MeuNode(v);
                 current.left = newNode;
                 newNode.parent = current;
             } else {
@@ -69,7 +69,7 @@ class MinhaBST8 {
             }
         } else {
             if (current.left == null){
-                MeuNode8 newNode = new MeuNode8(v);
+                MeuNode newNode = new MeuNode(v);
                 current.right = newNode;
                 newNode.parent = current;
             } else {
@@ -82,14 +82,14 @@ class MinhaBST8 {
         return this.size;
     }
 
-    public boolean equals(MinhaBST8 outra){
+    public boolean equals(MinhaBST outra){
         if (this.size != outra.size){
             return false;
         }
         return equals(this.root, outra.root);
     }
 
-    public boolean equals(MeuNode8 n1, MeuNode8 n2){
+    public boolean equals(MeuNode n1, MeuNode n2){
         if (n1 == null && n2 == null){
             return true;
         }
@@ -100,14 +100,14 @@ class MinhaBST8 {
     }
 }
 
-class MeuNode8 {
+class MeuNode {
 
     int value;
-    MeuNode8 left;
-    MeuNode8 right;
-    MeuNode8 parent;
+    MeuNode left;
+    MeuNode right;
+    MeuNode parent;
 
-    public MeuNode8(int v){
+    public MeuNode(int v){
         this.value = v;
         this.left = null;
         this.right = null;
