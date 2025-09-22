@@ -1,4 +1,4 @@
-/*public class ArvoreBinaria {
+public class ArvoreBinaria {
 
     public static void main(String[] args){
         BST arvore = new BST();
@@ -222,4 +222,4 @@ class Node {
     Node (int v){
         this.value = v;
     }
-}*/
+}
