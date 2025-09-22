@@ -1,4 +1,4 @@
-/*import java.util.NoSuchElementException;
+import java.util.NoSuchElementException;
 
 public class LinkedList {
     
@@ -248,4 +248,4 @@ class Node {
     Node(int v){
         this.value = v;
     }
-}*/
+}
