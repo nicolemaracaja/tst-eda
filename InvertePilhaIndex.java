@@ -1,4 +1,4 @@
-/*import java.util.NoSuchElementException;
+import java.util.NoSuchElementException;
 import java.util.*;
 
 class InvertePilhaIndex {
@@ -145,4 +145,4 @@ class MinhaPilha {
         return this.topo + 1;
     }
 
-}*/
+}
