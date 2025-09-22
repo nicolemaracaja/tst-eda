@@ -1,4 +1,4 @@
-/*import java.util.*;
+import java.util.*;
 
 class InvertePilhaSemFila {
     
@@ -77,4 +77,4 @@ class MinhaPilha {
 
         return saida;
     }
-}*/
+}
