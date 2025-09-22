@@ -1,4 +1,4 @@
-/*import java.util.*;
+import java.util.*;
 
 public class AlturaBST {
     
@@ -89,4 +89,4 @@ class MeuNode6 {
         this.right = null;
         this.parent = null;
     }
-}*/
+}
